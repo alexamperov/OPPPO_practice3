@@ -78,7 +78,7 @@ class CommandProcessorTests(unittest.TestCase):
             self.assertIn(value, output)
 
     def test_malformed_quoted_commands_not_crash(self) -> None:
-        output = self.run_commands('ADD SONG "Незакрытые кавычки 4.25 "Кино',
+        output = self.run_commands('ADD SONG "Незакрытые кавычки 4.25 Кино',
                                    'REM name == "Незакрытые кавычки')
         self.assertIn("Ошибка синтаксиса ADD", output)
         self.assertIn("Ошибка синтаксиса REM", output)
