@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class MusicalWork(ABC):
     """Базовый класс для музыкальных произведений."""
 
-    def __init__(self, name: str, duration: float):
+    def __init__(self, name: str, duration: float) -> None:
         self.name = name
         self.duration = duration
 
@@ -75,7 +75,7 @@ class MusicalWork(ABC):
 class Song(MusicalWork):
     """Песня. Уникальный параметр - исполнитель."""
 
-    def __init__(self, name: str, duration: float, performer: str):
+    def __init__(self, name: str, duration: float, performer: str) -> None:
         super().__init__(name, duration)
         self.performer = performer
 
@@ -92,7 +92,7 @@ class Song(MusicalWork):
 class Symphony(MusicalWork):
     """Симфония. Уникальный параметр - композитор."""
 
-    def __init__(self, name: str, duration: float, composer: str):
+    def __init__(self, name: str, duration: float, composer: str) -> None:
         super().__init__(name, duration)
         self.composer = composer
 

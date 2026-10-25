@@ -1,12 +1,13 @@
 import shlex
 
-from models import Song, Symphony
+from models import MusicalWork, Song, Symphony
 
 
 class CommandProcessor:
+    """Обрабатывает файл команд и хранит музыкальные произведения."""
 
-    def __init__(self):
-        self.works = []
+    def __init__(self) -> None:
+        self.works: list[MusicalWork] = []
 
     def process_add(self, arguments: str) -> None:
         try:
