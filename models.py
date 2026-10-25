@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from operator import eq, ge, gt, le, lt, ne
 
 
 class MusicalWork(ABC):
@@ -34,42 +35,34 @@ class MusicalWork(ABC):
 
         if field == "duration":
             try:
-                number = float(value)
+                reference = float(value)
             except ValueError:
                 return False
 
-            if operator == ">":
-                return self.duration > number
-            if operator == "<":
-                return self.duration < number
-            if operator == ">=":
-                return self.duration >= number
-            if operator == "<=":
-                return self.duration <= number
-            if operator == "==":
-                return self.duration == number
-            if operator == "!=":
-                return self.duration != number
+            comparisons = {
+                ">": gt,
+                "<": lt,
+                ">=": ge,
+                "<=": le,
+                "==": eq,
+                "!=": ne,
+            }
+            comparison = comparisons.get(operator)
+            return comparison(self.duration, reference) if comparison else False
 
-        if field == "name":
-            if operator == "==":
-                return self.name == value
-            if operator == "!=":
-                return self.name != value
-
-        if field == "author":
-            if operator == "==":
-                return self.get_author() == value
-            if operator == "!=":
-                return self.get_author() != value
-
-        if field == "type":
-            if operator == "==":
-                return self.get_type() == value
-            if operator == "!=":
-                return self.get_type() != value
-
+        text_values = {
+            "name": self.name,
+            "author": self.get_author(),
+            "type": self.get_type(),
+        }
+        if field not in text_values:
+            return False
+        if operator == "==":
+            return text_values[field] == value
+        if operator == "!=":
+            return text_values[field] != value
         return False
+
 
 
 class Song(MusicalWork):
