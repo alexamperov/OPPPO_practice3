@@ -12,7 +12,11 @@ class CommandProcessor:
     def process_add(self, arguments: str) -> None:
         try:
             parts = shlex.split(arguments)
+        except ValueError as error:
+            print(f"Ошибка синтаксиса ADD: {error}")
+            return
 
+        try:
             if len(parts) != 4:
                 print(f"Ошибка команды ADD: {arguments}")
                 return
@@ -37,7 +41,11 @@ class CommandProcessor:
             print("Ошибка: длительность должна быть числом.")
 
     def process_remove(self, arguments: str) -> None:
-        parts = shlex.split(arguments)
+        try:
+            parts = shlex.split(arguments)
+        except ValueError as error:
+            print(f"Ошибка синтаксиса REM: {error}")
+            return
 
         if len(parts) != 3:
             print(f"Ошибка команды REM: {arguments}")
